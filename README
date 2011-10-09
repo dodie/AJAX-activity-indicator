@@ -3,7 +3,7 @@ AJAX-activity-indicator
 
 This script adds onOpenGlobal and onDoneGlobal functions and numberOfOpenCalls property to XMLHttpRequest,
 thus it's possible to create AJAX activity indicators / progress bar. 
-Operates with many AJAX/JS frameworks. (For example, GWT or jQuery.)
+The script doesn't use any AJAX/JS framework, it _should_ work with most. (Tested with GWT and jQuery.)
 Works with IE7+, FF, Chrome etc, and has no effect on IE6 or older.
 See example.html and ajaxindicator.js for more information.
 
