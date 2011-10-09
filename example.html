@@ -1,0 +1,29 @@
+<html>
+<head>
+	<script type="text/javascript" src="ajaxindicator.js"></script>
+	<script>
+		window.XMLHttpRequest.onOpenGlobal = function(openCalls) {
+			document.getElementById('ajaxIndicator').style.display = 'block';
+		};
+		window.XMLHttpRequest.onDoneGlobal = function(openCalls) {
+			if (openCalls == 0) {
+				document.getElementById('ajaxIndicator').style.display = 'none';
+			}
+		};
+	</script>
+	<style>
+		#ajaxIndicator {
+			width: 100px;
+			height: 100px;
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="ajaxIndicator" style="display:none;">AJAX call in progress</div>
+	<div class="content">
+		<span>Click this button for some AJAX magic...</span>
+		<input type="button" onclick="alert('your AJAX call here...');">AJAX!</input>
+	</div>
+</body>
+</html>
