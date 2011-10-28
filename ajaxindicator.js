@@ -1,33 +1,16 @@
 /*
 * AJAX Progress Indicator (Progress bar)
 * --------------------------------------
-*
 * This script adds onOpenGlobal and onDoneGlobal functions and numberOfOpenCalls, doneCallbackDelay and openCallbackDelay properties to XMLHttpRequest.
 *  - XMLHttpRequest.onOpenGlobal(count) will be called every time an AJAX connection opens.
 *  - XMLHttpRequest.onDoneGlobal(count) will be called every time an AJAX connection's readystate changes to DONE (4).
-*  - Setting doneCallbackDelay openCallbackDelay greater than zero can prevent spike AJAX communication from showing the indicator for really short times. (Defaults values are 0.)
-*  - The count parameter indicates the number of open AJAX connections globally, XMLHttpRequest.numberOfOpenCalls holds the same value.
+*  - The count parameter indicates the number of open AJAX connections globally at the given time, XMLHttpRequest.numberOfOpenCalls holds the same value.
+*  - Setting openCallbackDelay and doneCallbackDelay greater than zero can prevent spike AJAX communication from showing the indicator for really short times.
+*          - openCallbackDelay (ms): before calling onOpenGlobal, the scripts waits the specified time. The client code can ignore spikes by testing the openCalls parameter.
+*          - doneCallbackDelay (ms): before calling onDoneGlobal, the scripts waits the specified time. Can be used to show the indicator for a given time once it displayed.
 *  - Override the onOpenGlobal and onDoneGlobal functions with custom functions for your AJAX indicator.
-*  - Works on IE7+, FF, Chrome... It has no effect on unsupported browsers.
-*  - Example:
-*        function handleAjaxIndicator(openCalls) {
-*        	if (openCalls == 0) {
-*        		// HIDE INDICATOR 	
-*        	} else {
-*        		// SHOW INDICATOR 
-*        	} 
-*        }
-*        window.XMLHttpRequest.onOpenGlobal = handleAjaxIndicator(openCalls);
-*        window.XMLHttpRequest.onDoneGlobal = handleAjaxIndicator(openCalls);
+*  - Works on IE7+, Firefox, Chrome, Opera, Safari... It has no effect on unsupported browsers. Should work with most AJAX/JS libraries (GWT, JQuery tested).
 *
-*        // showing every ajax activity, the indicator displays at least 500 ms
-*        window.XMLHttpRequest.doneCallbackDelay = 500;
-*        window.XMLHttpRequest.openCallbackDelay = 0;
-*
-*        // OR: hiding ajax spikes shorter than 100 ms, when visible, the indicator displays for 500 ms
-*        window.XMLHttpRequest.doneCallbackDelay = 500;
-*        window.XMLHttpRequest.openCallbackDelay = 100;
-* 
 * Author: dodie
 * http://www.advancedweb.hu
 */
@@ -40,6 +23,10 @@ if (window.XMLHttpRequest) {
 		window.XMLHttpRequest.onDoneGlobal = function(numberOfOpenCalls){};
 		window.XMLHttpRequest.doneCallbackDelay = 0;
 		window.XMLHttpRequest.openCallbackDelay = 0;
+		
+		if (!window.XMLHttpRequest.DONE) {
+			window.XMLHttpRequest.DONE = 4;
+		}
 		
 		var openTimer;
 		var doneTimer;
@@ -89,6 +76,6 @@ if (window.XMLHttpRequest) {
 				}
 			};
 			return window.XMLHttpRequest.prototype._send.apply(this, arguments);
-		}
+		};
 	}
 }

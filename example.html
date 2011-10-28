@@ -1,21 +1,26 @@
+<!doctype html>
 <html>
 <head>
 	<script type="text/javascript" src="ajaxindicator.js"></script>
 	<script>
-		window.XMLHttpRequest.onOpenGlobal = function(openCalls) {
-			document.getElementById('ajaxIndicator').style.display = 'block';
-		};
-		window.XMLHttpRequest.onDoneGlobal = function(openCalls) {
+		function handleAjaxIndicator(openCalls) {
 			if (openCalls == 0) {
-				document.getElementById('ajaxIndicator').style.display = 'none';
-			}
-		};
+				// HIDE INDICATOR
+				document.getElementById('ajaxIndicator').style.background = 'white';
+			} else {
+				// SHOW INDICATOR
+				document.getElementById('ajaxIndicator').style.background = 'darkRed';
+			} 
+		}
+		
+		window.XMLHttpRequest.onOpenGlobal = handleAjaxIndicator;
+		window.XMLHttpRequest.onDoneGlobal = handleAjaxIndicator;
 		
 		// showing every ajax activity, the indicator displays at least 500 ms
 		window.XMLHttpRequest.doneCallbackDelay = 500;
 		window.XMLHttpRequest.openCallbackDelay = 0;
 		
-		// OR: hiding ajax spikes shorter than 100 ms, when visible, the indicator displays for 500 ms
+		// OR: hiding comminication spikes shorter than 100 ms, when visible, the indicator displays for 500 ms
 		//window.XMLHttpRequest.doneCallbackDelay = 500;
 		//window.XMLHttpRequest.openCallbackDelay = 100;
 	</script>
@@ -23,15 +28,17 @@
 		#ajaxIndicator {
 			width: 100px;
 			height: 100px;
-			background: red;
+			color: white;
+			font-weight: bold;
+			padding: 10px;
 		}
 	</style>
 </head>
 <body>
-	<div id="ajaxIndicator" style="display:none;">AJAX call in progress</div>
+	<div id="ajaxIndicator" style="background:white;">AJAX call in progress!</div>
 	<div class="content">
 		<span>Click this button for some AJAX magic...</span>
-		<input type="button" onclick="alert('your AJAX call here...');">AJAX!</input>
+		<input type="button" onclick="YOUR_AJAX_CALL_HERE(...);">AJAX!</input>
 	</div>
 </body>
 </html>
