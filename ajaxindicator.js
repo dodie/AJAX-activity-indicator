@@ -6,8 +6,8 @@
 *  - XMLHttpRequest.onDoneGlobal(count) will be called every time an AJAX connection's readystate changes to DONE (4).
 *  - The count parameter indicates the number of open AJAX connections globally at the given time, XMLHttpRequest.numberOfOpenCalls holds the same value.
 *  - Setting openCallbackDelay and doneCallbackDelay greater than zero can prevent spike AJAX communication from showing the indicator for really short times.
-*          - openCallbackDelay (ms): before calling onOpenGlobal, the scripts waits the specified time. The client code can ignore spikes by testing the openCalls parameter.
-*          - doneCallbackDelay (ms): before calling onDoneGlobal, the scripts waits the specified time. Can be used to show the indicator for a given time once it displayed.
+*          - openCallbackDelay (ms): before calling onOpenGlobal, the scripts waits for the specified time. The client code can ignore spikes by testing the openCalls parameter.
+*          - doneCallbackDelay (ms): before calling onDoneGlobal, the scripts waits for the specified time. Can be used to show the indicator for a given time once it displayed.
 *  - Override the onOpenGlobal and onDoneGlobal functions with custom functions for your AJAX indicator.
 *  - Works on IE7+, Firefox, Chrome, Opera, Safari... It has no effect on unsupported browsers. Should work with most AJAX/JS libraries (GWT, JQuery tested).
 *
